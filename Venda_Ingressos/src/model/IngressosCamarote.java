@@ -25,7 +25,7 @@ public class IngressosCamarote extends Ingresso{
 
     @Override
     public String toString(){
-        System.out.println("===model.Ingresso Camarote===");
+        System.out.println("===Ingresso Camarote===");
         return super.toString() + "\n Localização: " + getLocalizacao();
     }
 }

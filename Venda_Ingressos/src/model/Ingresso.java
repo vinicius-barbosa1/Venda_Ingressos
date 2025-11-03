@@ -31,15 +31,18 @@ public class Ingresso {
     }
 
     public void vender(){
-//        if(cod){
-//
-//        }
-        this.status = "indisponivel";
+        if(getStatus().equals("indisponivel")){
+            System.out.println("Este ingresso já foi vendido!");
+            return;
+        }else{
+            this.status = "indisponivel";
+            System.out.println("Ingresso vendido com sucesso!");
+        }
     }
 
     @Override
     public String toString(){
-        System.out.println("===model.Ingresso Pista===");
+        System.out.println("===Ingresso Pista===");
         return "Código: " + getCodigo() + "\nPreço: " + getPreco() + "\nStatus: " + getStatus();
     }
 }
