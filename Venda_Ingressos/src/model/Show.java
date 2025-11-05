@@ -10,7 +10,6 @@ public class Show {
     protected String nome;
     protected String data;
     protected String local;
-    protected int qtd_ingresso = 0;
 
     public Show(String nome){
         this.nome = nome;
@@ -35,32 +34,46 @@ public class Show {
     }
 
     public int getQtd_ingresso(){
-        return qtd_ingresso;
+        return listaIngressos.size();
+    }
+
+    public LocalDate getDataAsLocalDate() {
+        return StringParaData(this.data);
     }
 
     public void adicionarIngresso(Ingresso ingresso){
         if(ingresso != null){
             listaIngressos.add(ingresso);
-            System.out.println("Ingresso adicionado com sucesso.");
         }else{
             System.err.println("ERRO: Não foi possível cadastrar o ingresso.");
         }
     }
 
     public void listarIngressosDisponiveis(){
+        boolean encontrado = false;
+        System.out.println("---Ingressos Disponíveis---");
         for(Ingresso ingresso : listaIngressos){
             if(ingresso.getStatus().equals("disponivel")){
                 System.out.println(ingresso.toString());
-                qtd_ingresso++;
+                encontrado = true;
             }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum ingresso disponível para este show.");
         }
     }
 
     public void listarIngressosVendidos(){
+        boolean encontrado = false;
+        System.out.println("---Ingressos Vendidos---");
         for(Ingresso ingresso : listaIngressos){
             if(ingresso.getStatus().equals("vendido")){
                 System.out.println(ingresso.toString());
+                encontrado = true;
             }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum ingresso vendido para este show.");
         }
     }
 
@@ -71,14 +84,12 @@ public class Show {
                 somaTotal += ingresso.getPreco();
             }
         }
-        System.out.print("O total arrecadado foi: R$");
         return somaTotal;
     }
 
     @Override
     public String toString(){
-        System.out.println("===Detalhes do Show===");
-        return "Nome: " + getNome() + "\nData: " + StringParaData(data) + "\nLocal: " + getLocal() + "\nTotal de Ingressos: " + qtd_ingresso;
+        return "Nome: " + getNome() + " | Data: " + getData() + " | Local: " + getLocal() + " | Total de Ingressos: " + listaIngressos.size();
     }
 
     @Override
@@ -104,6 +115,9 @@ public class Show {
     }
 
     public LocalDate StringParaData(String data){
+        if (data == null || data.trim().isEmpty()) {
+            return null;
+        }
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(data, formato);
     }

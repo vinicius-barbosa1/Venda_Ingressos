@@ -1,13 +1,17 @@
 package model;
 
 public class Ingresso {
+    private static int proximoCodigo = 1;
+
     protected int codigo;
     protected double preco;
     protected String status;
 
     public Ingresso(double preco){
+        this.codigo = proximoCodigo++;
+
         if(preco <= 0){
-            System.err.println("O preço do ingresso não pode ser negativo.");
+            System.err.println("O preço do ingresso não pode ser negativo. Preço definido para 0.");
             this.preco = 0;
         }else{
             this.preco = preco;
@@ -31,18 +35,17 @@ public class Ingresso {
     }
 
     public void vender(){
-        if(getStatus().equals("indisponivel")){
+        if(getStatus().equals("vendido")){
             System.out.println("Este ingresso já foi vendido!");
             return;
         }else{
-            this.status = "indisponivel";
-            System.out.println("Ingresso vendido com sucesso!");
+            this.status = "vendido";
+            System.out.println("Ingresso de Código " + this.codigo + " vendido com sucesso!");
         }
     }
 
     @Override
     public String toString(){
-        System.out.println("===Ingresso Pista===");
-        return "Código: " + getCodigo() + "\nPreço: " + getPreco() + "\nStatus: " + getStatus();
+        return "Código: " + getCodigo() + " | Preço: R$" + String.format("%.2f", getPreco()) + " | Tipo: Pista | Status: " + getStatus();
     }
 }
