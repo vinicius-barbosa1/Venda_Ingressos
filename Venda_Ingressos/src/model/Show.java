@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Show {
     public ArrayList<Ingresso> listaIngressos = new ArrayList<>();
     protected String nome;
-    protected String data;
+    protected LocalDate data;
     protected String local;
 
     public Show(String nome){
@@ -17,7 +17,7 @@ public class Show {
 
     public Show(String nome, String data, String local){
         this.nome = nome;
-        this.data = data;
+        this.data = LocalDate.parse(data);
         this.local = local;
     }
 
@@ -114,12 +114,17 @@ public class Show {
         return Objects.hash(nome, data, local);
     }
 
+<<<<<<< HEAD
     public LocalDate StringParaData(String data){
         if (data == null || data.trim().isEmpty()) {
             return null;
         }
+=======
+    public LocalDate StringParaData(/*String data*/){
+>>>>>>> 2ed72b317a7a24c888d9d0c6f50cc9a2f09201d4
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(data, formato);
+        return data.format(formato);
+      //  return LocalDate.parse(data, formato);
     }
 
     public String DataParaString(LocalDate data){
