@@ -4,28 +4,23 @@ public class IngressosCamarote extends Ingresso{
     private String localizacao;
 
     public IngressosCamarote(double preco, String localizacao){
-        if(preco <= 0){
-            System.err.println("O preço do ingresso não pode ser negativo.");
-            this.preco = 0;
-        }else{
-            this.preco = preco;
-            this.status = "disponivel";
-            this.localizacao = localizacao;
-        }
-       // super(preco);
+        super(preco);
+        this.localizacao = localizacao;
     }
 
     public String getLocalizacao(){
         return localizacao;
     }
 
+    @Override
     public void vender(){
+        System.out.print("Camarote ");
         super.vender();
     }
 
     @Override
     public String toString(){
-        System.out.println("===Ingresso Camarote===");
-        return super.toString() + "\n Localização: " + getLocalizacao();
+        return "Código: " + getCodigo() + " | Preço: R$" + String.format("%.2f", getPreco()) +
+                " | Tipo: Camarote | Localização: " + getLocalizacao() + " | Status: " + getStatus();
     }
 }
